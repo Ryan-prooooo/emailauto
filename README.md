@@ -9,6 +9,7 @@
 - 🏷️ 自动分类（购物、账单、物流、社交、工作、订阅等）
 - ⏰ 定时推送每日摘要
 - 🤖 AI 智能对话助手（可查询邮件、事件，甚至自动回复邮件）
+- 🧩 LangGraph 工作流智能体（与现有 ReAct 并存）
 - 🔌 支持 MCP 工具扩展
 
 ## 项目结构
@@ -126,6 +127,9 @@ python main.py
 - `POST /api/reply/draft/{email_id}` - 生成邮件回复草稿
 - `POST /api/reply/send/{email_id}` - 发送邮件回复
 
+### LangGraph（新增）
+- `POST /api/agents/langgraph/chat` - 使用 LangGraph 的 AI 对话（返回 `tool_calls`/`tool_results`）
+
 ### 定时任务
 - `POST /api/scheduler/trigger-sync` - 手动触发同步
 
@@ -161,6 +165,12 @@ python main.py
 ### 3. AI 功能无法使用
 
 检查 `.env` 中的 `OPENAI_API_KEY` 是否填写正确，以及网络能否访问 `OPENAI_BASE_URL`。
+
+### 4. LangGraph 接口调用失败 / ImportError
+
+- 确认已在后端环境安装依赖：`langgraph`、`langchain-core`（见 `backend/app/requirements.txt`）。
+- 如果报 `No module named 'langchain_openai'`：LangGraph 节点实现使用了 `langchain_openai.ChatOpenAI`，需要额外安装：
+  - `pip install langchain-openai`
 
 ## License
 

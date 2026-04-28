@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2026-04-27T03:20:00.000Z" agent="Codex" version="24.0.0" type="device">
+  <diagram name="Plan Table Architecture" id="plan-table-arch">
+    <mxGraphModel dx="1400" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1200" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="MailLife LangGraph Plan 表格架构图" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;fontColor=#1565C0;" vertex="1" parent="1">
+          <mxGeometry x="520" y="20" width="760" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="以 docs/plan.md 为准，强调目标架构，不混入当前实现偏差" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=12;fontColor=#546E7A;" vertex="1" parent="1">
+          <mxGeometry x="500" y="52" width="800" height="24" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="h1" value="层级" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCEBFF;strokeColor=#5B8DEF;fontStyle=1;fontSize=13;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="100" width="120" height="52" as="geometry"/>
+        </mxCell>
+        <mxCell id="h2" value="组件 / 入口" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCEBFF;strokeColor=#5B8DEF;fontStyle=1;fontSize=13;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="160" y="100" width="260" height="52" as="geometry"/>
+        </mxCell>
+        <mxCell id="h3" value="是否在 LangGraph 内" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCEBFF;strokeColor=#5B8DEF;fontStyle=1;fontSize=13;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="100" width="150" height="52" as="geometry"/>
+        </mxCell>
+        <mxCell id="h4" value="职责 / 计划语义" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCEBFF;strokeColor=#5B8DEF;fontStyle=1;fontSize=13;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="570" y="100" width="520" height="52" as="geometry"/>
+        </mxCell>
+        <mxCell id="h5" value="主要下游 / 依赖" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#DCEBFF;strokeColor=#5B8DEF;fontStyle=1;fontSize=13;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="100" width="420" height="52" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r1c1" value="入口层" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="152" width="120" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="r1c2" value="/api/chat" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="152" width="260" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="r1c3" value="是" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="152" width="150" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="r1c4" value="统一进入 LangGraph Supervisor，对话请求先做 classify_intent，再由 Email Router 分发。" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="570" y="152" width="520" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="r1c5" value="classify_intent_node&#xa;Email Router&#xa;5 个业务 Agent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="152" width="420" height="72" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r2c1" value="入口层" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="224" width="120" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="r2c2" value="/api/reply/draft/:id" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="224" width="260" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="r2c3" value="否" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="224" width="150" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="r2c4" value="独立的邮件回复接口。它不是 LangGraph 主对话编排的一部分，但仍然属于回复能力侧入口。" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="570" y="224" width="520" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="r2c5" value="app.agents.email_reply&#xa;draft_email_reply / send_reply" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="224" width="420" height="72" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r3c1" value="入口层" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="296" width="120" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="r3c2" value="SchedulerManager" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="296" width="260" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="r3c3" value="部分在图外" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="296" width="150" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="r3c4" value="计划里承担定时同步、解析、通知触发。图上主要与 Notification Agent 关联，用于表示主动通知场景。" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="570" y="296" width="520" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="r3c5" value="Notification Agent&#xa;IMAP sync / parser pipeline&#xa;daily summary trigger" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="296" width="420" height="72" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r4c1" value="路由层" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="368" width="120" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="r4c2" value="classify_intent_node&#xa;+ Email Router" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="368" width="260" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="r4c3" value="是" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="368" width="150" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="r4c4" value="把用户请求分类成 query / general / reply / meeting / notification，必要时支持多意图分发。它是所有业务 Agent 的统一入口。" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="570" y="368" width="520" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="r4c5" value="Query Agent&#xa;General Agent&#xa;Reply Agent&#xa;Meeting Agent&#xa;Notification Agent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="368" width="420" height="78" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r5c1" value="业务 Agent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="446" width="120" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="r5c2" value="Query Agent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="446" width="260" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="r5c3" value="是" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="446" width="150" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="r5c4" value="直接查询 PostgreSQL 中的邮件与事件，不依赖 Parser。面向列表、筛选、时间范围、全文搜索。" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="570" y="446" width="520" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="r5c5" value="PostgreSQL&#xa;aggregate_and_respond_node" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="446" width="420" height="78" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r6c1" value="业务 Agent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="524" width="120" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="r6c2" value="General Agent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="524" width="260" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="r6c3" value="是" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="524" width="150" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="r6c4" value="读取最近上下文后直接由 LLM 回答，承接通用问答、兜底问题和闲聊场景。" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="570" y="524" width="520" height="78" as="geometry"/>
+        </mxCell>
+        <mxCell id="r6c5" value="历史上下文&#xa;LLM&#xa;aggregate_and_respond_node" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="524" width="420" height="78" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r7c1" value="业务 Agent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="602" width="120" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="r7c2" value="Reply Agent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="602" width="260" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="r7c3" value="是" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="602" width="150" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="r7c4" value="调用 EmailParser.parse_email() 获取摘要，再用 draft_email_reply 生成草稿；通过 interrupt 挂起，等待用户确认后真正发送。" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="570" y="602" width="520" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="r7c5" value="EmailParser&#xa;draft_email_reply&#xa;confirm / cancel&#xa;reflect_check_node&#xa;aggregate_and_respond_node" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="602" width="420" height="86" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r8c1" value="业务 Agent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="688" width="120" height="94" as="geometry"/>
+        </mxCell>
+        <mxCell id="r8c2" value="Meeting Agent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="688" width="260" height="94" as="geometry"/>
+        </mxCell>
+        <mxCell id="r8c3" value="是" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="688" width="150" height="94" as="geometry"/>
+        </mxCell>
+        <mxCell id="r8c4" value="先走 EmailParser 的通用字段提取，再做会议专项提取，生成 RSVP 决策；通过 interrupt 等待用户确认，之后写 DB 并发出 RSVP 回复。" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="570" y="688" width="520" height="94" as="geometry"/>
+        </mxCell>
+        <mxCell id="r8c5" value="EmailParser&#xa;会议专项提取逻辑&#xa;confirm_meeting / cancel_meeting&#xa;events 表&#xa;reflect_check_node" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="688" width="420" height="94" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r9c1" value="业务 Agent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="782" width="120" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="r9c2" value="Notification Agent" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="782" width="260" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="r9c3" value="是" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="782" width="150" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="r9c4" value="读取已解析邮件和事件数据，负责飞书卡片推送、每日摘要、实时事件通知和 RSVP 催办等主动提醒场景。" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="570" y="782" width="520" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="r9c5" value="PostgreSQL&#xa;Feishu Bot&#xa;SchedulerManager&#xa;aggregate_and_respond_node" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="782" width="420" height="86" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r10c1" value="共享层" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="868" width="120" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="r10c2" value="EmailParser / 工具 / MCP" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="868" width="260" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="r10c3" value="部分在图内" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="868" width="150" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="r10c4" value="提供通用解析、摘要、邮件发送、外部系统接入等能力，是 Reply / Meeting / Notification 等业务 Agent 的共享能力底座。" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="570" y="868" width="520" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="r10c5" value="EmailParser.parse_email()&#xa;draft_email_reply / reply_email&#xa;MCP 工具&#xa;Mailer / Feishu" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="868" width="420" height="86" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="r11c1" value="后处理层" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="40" y="954" width="120" height="94" as="geometry"/>
+        </mxCell>
+        <mxCell id="r11c2" value="reflect_check_node&#xa;+ aggregate_and_respond_node" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="954" width="260" height="94" as="geometry"/>
+        </mxCell>
+        <mxCell id="r11c3" value="是" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="420" y="954" width="150" height="94" as="geometry"/>
+        </mxCell>
+        <mxCell id="r11c4" value="reflect_check_node 负责发送前自检；aggregate_and_respond_node 负责把 Query / General / Reply / Meeting / Notification 的输出统一整理给用户。" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="570" y="954" width="520" height="94" as="geometry"/>
+        </mxCell>
+        <mxCell id="r11c5" value="END&#xa;前端对话展示&#xa;飞书确认卡片回调" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F8FBFF;strokeColor=#B0BEC5;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="954" width="420" height="94" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="note" value="说明：这是一张“表格型总览图”，重点是按层和职责展开 plan 架构；如果你还想要“泳道矩阵版”，可以再生成一张 actor × stage 的交叉表图。" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF8E1;strokeColor=#FBC02D;fontSize=12;align=left;verticalAlign=middle;spacingLeft=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1080" width="1470" height="56" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

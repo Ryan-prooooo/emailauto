@@ -1,0 +1,41 @@
+# 环境与配置
+.env
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+*.so
+.pytest_cache/
+.mypy_cache/
+
+# 数据库
+*.db
+*.sqlite3
+
+# 日志与临时
+*.log
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# 构建与分发
+dist/
+build/
+*.egg-info/
+*.egg
+node_modules/
+assets/.$*.bkp
+
+# Docker
+docker/.env
+docker/node_modules/
+
+# 环境变量
+.env.local
+.env.prod

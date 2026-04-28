@@ -1,0 +1,106 @@
+# ==============================================================================
+# Docker Compose - Local Development
+# ==============================================================================
+
+name: maillife
+
+services:
+  # ---------------------------------------------------------------------------
+  # PostgreSQL Database
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: maillife-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-maillife}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB: ${POSTGRES_DB:-maillife}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../configs/docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-maillife}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Backend API Service
+  # ---------------------------------------------------------------------------
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.backend
+    image: maillife-backend:latest
+    container_name: maillife-backend
+    restart: unless-stopped
+    environment:
+      PYTHONPATH: /app
+      DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg2://maillife:changeme@postgres:5432/maillife}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-dev-secret-key}
+      JWT_ALGORITHM: ${JWT_ALGORITHM:-HS256}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${ACCESS_TOKEN_EXPIRE_MINUTES:-30}
+      QQ_EMAIL: ${QQ_EMAIL:-}
+      QQ_AUTH_CODE: ${QQ_AUTH_CODE:-}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
+      DASHSCOPE_BASE_URL: ${DASHSCOPE_BASE_URL:-https://dashscope.aliyuncs.com/compatible-mode/v1}
+      DASHSCOPE_MODEL: ${DASHSCOPE_MODEL:-qwen-plus}
+      CHECK_INTERVAL_MINUTES: ${CHECK_INTERVAL_MINUTES:-5}
+      SCHEDULED_SEND_HOUR: ${SCHEDULED_SEND_HOUR:-9}
+      SCHEDULED_SEND_MINUTE: ${SCHEDULED_SEND_MINUTE:-0}
+      MCP_EML_PARSER_COMMAND: ${MCP_EML_PARSER_COMMAND:-}
+      MCP_EML_PARSER_ARGS: ${MCP_EML_PARSER_ARGS:-}
+      MCP_EML_PARSER_CWD: ${MCP_EML_PARSER_CWD:-}
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ---------------------------------------------------------------------------
+  # Frontend Web Application
+  # ---------------------------------------------------------------------------
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    image: maillife-frontend:latest
+    container_name: maillife-frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api}
+      VITE_APP_NAME: ${VITE_APP_NAME:-MailLife-Dev}
+    ports:
+      - "80:8080"
+    depends_on:
+      - backend
+
+  # ---------------------------------------------------------------------------
+  # Nginx Reverse Proxy (optional - for local HTTPS simulation)
+  # ---------------------------------------------------------------------------
+  nginx:
+    image: nginx:alpine
+    container_name: maillife-nginx
+    restart: unless-stopped
+    volumes:
+      - ../configs/docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+      - frontend
+
+# ==============================================================================
+# Volumes
+# ==============================================================================
+volumes:
+  postgres_data:
+    driver: local
